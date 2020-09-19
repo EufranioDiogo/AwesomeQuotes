@@ -30,6 +30,12 @@
 <p align="center">
   <img src="IMG/ScreenShot2.png">
 </p>
+<p align="center">
+  <img src="IMG/ScreenShot3.png">
+</p>
+<p align="center">
+  <img src="IMG/ScreenShot4.png">
+</p>
 
 - Where can I see your demo?<br>
   [Here](https://eufraniodiogo.github.io/AwesomeQuotes)
