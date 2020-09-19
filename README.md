@@ -13,7 +13,7 @@
   </h3>
 </div>
 
-<p>Do you like me? A guy or a girl that loves to read or listening inspaire quotes, that literaly can change my mind? If you said yes, this is the best website to get all the quotes that you need!</p>
+<p>Do you like quotes like me? A guy or a girl that loves to read or listening inspaire quotes, that literaly can change my mind? If you said yes, this is the best website to get all the quotes that you need!</p>
 
 ## Table of Contents
 
