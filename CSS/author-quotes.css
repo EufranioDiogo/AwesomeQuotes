@@ -1,0 +1,111 @@
+@media only screen and (max-width: 1750px) {
+    .go-back {
+        border: none;
+        padding: 1rem 2rem;
+        color: #fff;
+        background-color: #d300007a;
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-align: center;
+        width: 105px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-left: 22.5%;
+        margin-top: 2.5rem;
+        border-radius: 0.5rem;
+    }
+    .go-back:hover {
+        background-color: #fc0000da;
+    }
+    .main-conteiner {
+        position: relative;
+        display: flex;
+        margin: 2rem auto;
+        width: 55%;
+        padding: 1rem;
+        flex-wrap: wrap;
+        background-color: #ffffffe5;
+        border-radius: 5px;
+        flex-direction: column;
+        margin-bottom: 10rem !important;
+    }
+    .main-conteiner .author-name {
+        font-size: 2.5rem;
+        font-family: Poppins, sans-serif;
+        color: rgba(4, 4, 4, 0.815);
+        margin-bottom: 2.5rem;
+    }
+    .quote-list {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        margin: 2rem 0;
+        transition: 0.5s;
+    }
+    .quote-list .quote {
+        margin: 2rem 0;
+        padding: 1rem;
+        border-left: 0.2rem solid #009eec;
+        font-family: Roboto, sans-serif;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        text-align: justify;
+        transition: 0.5s;
+    }
+    .genre{
+        margin-top: 1.5rem;
+        color: #000000c2;
+    }
+    .quote:hover {
+        box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.194);
+    }
+    .previous-next-quotes {
+        position: relative;
+        width: 100%;
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: auto;
+    }
+    .previous-next-quotes button {
+        border: none;
+        padding: 1rem 2rem;
+        color: #fff;
+        background-color: #000000c3;
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-align: center;
+        width: 105px;
+        cursor: pointer;
+    }
+    .off {
+        background-color: #0000006c !important;
+        cursor: not-allowed !important;
+    }
+    .off:hover {
+        background-color: #0000006c !important;
+    }
+    .no-more-quotes {
+        font-size: 2.0rem;
+        font-family: Poppins, sans-serif;
+        text-align: center;
+        transition: 0.5s;
+        opacity: 1;
+    }
+    .actual-page {
+        font-size: 1.4rem;
+        font-family: Roboto, Poppins, sans-serif;
+        font-weight: 900;
+    }
+}
+@media only screen and (max-width: 750px){
+    .main-conteiner{
+        width: 90%;
+    }
+    .go-back{
+        margin-left: 5%;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="CSS/universal.css">
+  <link rel="stylesheet" href="index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/5c7edfd842.js" crossorigin="anonymous"></script>
+  <title>Random Quote Generator</title>
+</head>
+
+<body>
+  <h1 id="title">#QuotesGenerator</h1>
+
+  <div id="app">
+
+    <search-engine :searchresults="searchResults" @more-about-author="knowMoreAboutAuthor" @search-authors="searchAuthors"></search-engine>
+
+    <div class="main-conteiner">
+      <div class="quote-conteiner">
+        <p class="quote-text"> {{ quoteText }}</p>
+      </div>
+      <div class="quote-information">
+        <p class="quote-author">Author: {{ quoteAuthor }}</p>
+        <p class="quote-genre">Genre: {{ quoteGenre }}</p>
+      </div>
+      <div class="quote-controller">
+        <select name="genre" id="genre">
+          <option v-for="option in quoteGenres" :value="option">{{ option[0].toUpperCase() + option.slice(1) }}</option>
+        </select>
+
+        <button class="generate-quote" @click="generateQuote">
+          Generate Quote
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+
+</html>

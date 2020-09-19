@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto;500&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="../CSS/universal.css">
+    <link rel="stylesheet" href="../CSS/author-quotes.css">
+    <title>Quotes</title>
+</head>
+
+<body>
+    <button class="go-back">Go Back</button>
+    <div class="main-conteiner">
+        <h2 class="author-name"> {{ authorName }} </h2>
+
+        <h3 class="actual-page">Actual Page: {{ actualPage }} </h3>
+        <ul class="quote-list" v-if="array.length">
+            <li v-for="quote in array" class="quote">
+                {{ quote.quoteText }}
+                <p class="genre">Genre: {{ quote.quoteGenre }}</p>
+            </li>
+        </ul>
+        <p v-else class="no-more-quotes">There's no more quotes to see sorry :) click at go back</p>
+        <div class="previous-next-quotes">
+            <button class="previous-quotes" @click="prevQuotes" :class="{off: actualPage == 1}" :disabled="!actualPage == 1">
+                Previous
+            </button>
+            <button class="next-quotes" @click="nextQuotes" :class="{off: array.length == 0}" :disabled="!array.length">
+                Next
+            </button>
+        </div>
+    </div>
+    <script src="../JS/author-quotes.js"></script>
+</body>
+
+</html>
