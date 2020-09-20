@@ -83,6 +83,7 @@ Vue.component('search-engine', {
             } else {
                 if (this.authorToSearch == this.prevAuthorName) {
                     this.showResults = true;
+                    document.querySelector('.main-conteiner').style.opacity = '0'
                 } else {
                     this.showResults  = false;
                 }
@@ -115,7 +116,7 @@ let app = new Vue({
             'amazing', 'best', 'birthday','business', 'change', 'communication',
             'cool', 'death', 'design', 'diet',
             'dream', 'failure', 'faith', 'family',
-            'food', 'future', 'funny', 'god', 'good',
+            'food', 'future', 'funny', 'friendship', 'god', 'good',
             'government', 'happiness', 'health',
             'history', 'hope', 'intelligence', 'knowledge', 'legal',
             'life', 'love', 'nature', 'marriage','motivational',
