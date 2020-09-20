@@ -53,7 +53,7 @@ Vue.component('search-engine', {
     template: `
     <div class="search-conteiner">
         <div class="search-input-conteiner">
-            <input type="text" placeholder="Search to your favorite author" id="author-input-field" v-model="authorToSearch" @change="newSearch">
+            <input type="text" placeholder="Search to your favorite author" id="author-input-field" v-model="authorToSearch" @input="newSearch">
             <i v-if="showResults" class="fas fa-times" @click="closeResults"></i>
             <i v-else class="fas fa-search" @click="searchAuthors"></i>
         </div>
@@ -98,6 +98,7 @@ Vue.component('search-engine', {
         },
         newSearch(){
             this.showResults = false;
+            document.querySelector('.main-conteiner').style.opacity = '1'
         }
     }
 })
