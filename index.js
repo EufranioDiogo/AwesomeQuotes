@@ -53,7 +53,7 @@ Vue.component('search-engine', {
     template: `
     <div class="search-conteiner">
         <div class="search-input-conteiner">
-            <input type="text" placeholder="Search to your favorite author" id="author-input-field" v-model="authorToSearch" @input="newSearch" @keyup.enter="searchAuthors">
+            <input type="text" placeholder="Search to your favorite author" id="author-input-field" v-model="authorToSearch" @input.trim="newSearch();searchAuthors()" @keyup.enter="searchAuthors">
             <i v-if="showResults" class="fas fa-times" @click="closeResults"></i>
             <i v-else class="fas fa-search" @click="searchAuthors"></i>
         </div>
@@ -74,7 +74,7 @@ Vue.component('search-engine', {
     },
     methods: {
         searchAuthors() {
-            this.authorToSearch = this.authorToSearch.trim();
+            this.authorToSearch = this.authorToSearch;
 
             if (this.authorToSearch !== '' && this.prevAuthorName !== this.authorToSearch && (this.prevAuthorName == '' || this.prevAuthorAuthor != '')) {
                 this.$emit('search-authors', this.authorToSearch)
