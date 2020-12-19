@@ -6,20 +6,21 @@ function generatorRandomInt(min, max) {
 
 function quoteGenerator(genre = 'random') {
     if (genre === 'random') {
-        fetch('https://quote-garden.herokuapp.com/api/v2/quotes/random').then((response) => response.json()).then((data) => {
-            data = data.quote;
+        fetch(' https://quote-garden.herokuapp.com/api/v3/quotes/random').then((response) => response.json()).then((data) => {
+            data = data.data[0];
             app.quoteText = data.quoteText;
             document.querySelector('.quote-text').style.opacity = '1'
             app.quoteAuthor = data.quoteAuthor;
             app.quoteGenre = data.quoteGenre;
         })
     } else {
-        fetch('https://quote-garden.herokuapp.com/api/v2/genre/' + encodeURI(genre) + '?limit=' + limit).then(response => response.json()).then(data => {
-            let results = data.quotes;
+        fetch('https://quote-garden.herokuapp.com/api/v3/genre/' + encodeURI(genre) + '?limit=' + limit).then(response => response.json()).then(data => {
+            console.log(data.data);
+            let results = data.data;
             let index = null;
 
             if (!results.length) {
-                fetch('https://quote-garden.herokuapp.com/api/v2/genre/' + encodeURI(genre)).then(response => response.json()).then(data => {
+                fetch('https://quote-garden.herokuapp.com/api/v3/genre/' + encodeURI(genre)).then(response => response.json()).then(data => {
                     console.log(data)
                     results = data.quotes;
                     index = generatorRandomInt(0, results.length)
@@ -141,12 +142,13 @@ let app = new Vue({
             document.querySelector('.main-conteiner').style.opacity = '0'
 
             if (authorName) {
-                console.log('entrou')
                 while (data.length) {
                     data = []
 
-                    fetch(`https://quote-garden.herokuapp.com/api/v2/authors/${encodeURI(authorName)}?page=${page}`).then(response => response.json()).then(data1 => {
-                        data = data1.quotes;
+                    fetch(`https://quote-garden.herokuapp.com/api/v3/authors`).then(response => response.json()).then(result => {
+                        data = result.data;
+
+                        console.log(data)
 
                         for (let i = 0; i < data.length; i++) {
                             for (let j = 0; j < app.searchResults.length; j++) {
