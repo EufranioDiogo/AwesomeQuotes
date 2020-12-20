@@ -4,6 +4,14 @@ function generatorRandomInt(min, max) {
     return parseInt(Math.random() * (max - min) + min);
 }
 
+function getAllGenres() {
+    app.quoteGenres = ['random']
+
+    fetch('https://quote-garden.herokuapp.com/api/v3/genres').then(response => response.json()).then((data) => {
+        app.quoteGenres.push(...data.data);
+    })
+}
+
 function quoteGenerator(genre = 'random') {
     if (genre === 'random') {
         fetch(' https://quote-garden.herokuapp.com/api/v3/quotes/random').then((response) => response.json()).then((data) => {
@@ -14,25 +22,19 @@ function quoteGenerator(genre = 'random') {
             app.quoteGenre = data.quoteGenre;
         })
     } else {
-        fetch('https://quote-garden.herokuapp.com/api/v3/genre/' + encodeURI(genre) + '?limit=' + limit).then(response => response.json()).then(data => {
-            console.log(data.data);
+        fetch('https://quote-garden.herokuapp.com/api/v3/quotes?genre=' + encodeURI(genre)).then(response => response.json()).then(data => {
             let results = data.data;
             let index = null;
 
             if (!results.length) {
-                fetch('https://quote-garden.herokuapp.com/api/v3/genre/' + encodeURI(genre)).then(response => response.json()).then(data => {
-                    console.log(data)
-                    results = data.quotes;
-                    index = generatorRandomInt(0, results.length)
+                index = generatorRandomInt(0, results.length);
 
-                    console.log(results)
-                    app.quoteText = results[index].quoteText;
-                    document.querySelector('.quote-text').style.opacity = '1'
-                    app.quoteAuthor = results[index].quoteAuthor;
-                    app.quoteGenre = results[index].quoteGenre;
-                })
+                app.quoteText = results[index].quoteText;
+                document.querySelector('.quote-text').style.opacity = '1';
+                app.quoteAuthor = results[index].quoteAuthor;
+                app.quoteGenre = results[index].quoteGenre;
             } else {
-                index = generatorRandomInt(0, results.length)
+                index = generatorRandomInt(0, results.length);
 
                 app.quoteText = results[index].quoteText;
                 document.querySelector('.quote-text').style.opacity = '1'
@@ -78,29 +80,29 @@ Vue.component('search-engine', {
             this.authorToSearch = this.authorToSearch;
 
             if (this.authorToSearch !== '' && this.prevAuthorName !== this.authorToSearch && (this.prevAuthorName == '' || this.prevAuthorAuthor != '')) {
-                this.$emit('search-authors', this.authorToSearch)
+                this.$emit('search-authors', this.authorToSearch);
                 this.prevAuthorName = this.authorToSearch;
                 this.showResults = true;
             } else {
                 if (this.authorToSearch == this.prevAuthorName) {
                     this.showResults = true;
-                    document.querySelector('.main-conteiner').style.opacity = '0'
+                    document.querySelector('.main-conteiner').style.opacity = '0';
                 } else {
-                    this.showResults  = false;
+                    this.showResults = false;
                 }
             }
-            
+
         },
         knowMoreAboutAuthor(authorName) {
-            this.$emit('more-about-author', authorName)
+            this.$emit('more-about-author', authorName);
         },
         closeResults() {
-            this.showResults = false
-            document.querySelector('.main-conteiner').style.opacity = '1'
-        },
-        newSearch(){
             this.showResults = false;
-            document.querySelector('.main-conteiner').style.opacity = '1'
+            document.querySelector('.main-conteiner').style.opacity = '1';
+        },
+        newSearch() {
+            this.showResults = false;
+            document.querySelector('.main-conteiner').style.opacity = '1';
         }
     }
 })
@@ -113,58 +115,33 @@ let app = new Vue({
         quoteText: '',
         quoteAuthor: '',
         quoteGenre: 'random',
-        quoteGenres: ['random',
-            'amazing', 'best', 'birthday','business', 'change', 'communication',
-            'cool', 'death', 'design', 'diet',
-            'dream', 'failure', 'faith', 'family',
-            'food', 'future', 'funny', 'friendship', 'god', 'good',
-            'government', 'happiness', 'health',
-            'history', 'hope', 'intelligence', 'knowledge', 'legal',
-            'life', 'love', 'nature', 'marriage','motivational',
-            'movies', 'mom', 'music', 'positive', 'politics',
-            'relationship', 'religion', 'sad', 'science', 'sports',
-            'strength', 'success', 'technology', 'trust'],
+        quoteGenres: [],
         searchResults: [],
         closeSearchResult: false,
     },
     methods: {
         generateQuote() {
-            let value = document.querySelector('#genre').value
+            let value = document.querySelector('#genre').value;
 
             document.querySelector('.quote-text').style.opacity = '0';
             quoteGenerator(value);
         },
         searchAuthors(authorName) {
-            app.searchResults = []
-            let data = ['']
-            let page = 1
-            let isAuthorInResults = false;
-            document.querySelector('.main-conteiner').style.opacity = '0'
+            app.searchResults = [];
+            let data = [''];
+            document.querySelector('.main-conteiner').style.opacity = '0';
 
             if (authorName) {
                 while (data.length) {
-                    data = []
+                    data = [];
 
-                    fetch(`https://quote-garden.herokuapp.com/api/v3/authors`).then(response => response.json()).then(result => {
+                    fetch(`https://quote-garden.herokuapp.com/api/v3/quotes?author=${authorName}`).then(response => response.json()).then(result => {
                         data = result.data;
 
-                        console.log(data)
-
                         for (let i = 0; i < data.length; i++) {
-                            for (let j = 0; j < app.searchResults.length; j++) {
-                                if (data[i].quoteAuthor == app.searchResults[j]) {
-                                    isAuthorInResults = true;
-                                    break
-                                }
-                            }
-                            if (isAuthorInResults == false) {
-                                app.searchResults.push(data[i].quoteAuthor)
-                            } else {
-                                isAuthorInResults = false;
-                            }
+                            app.searchResults.push(data[i].quoteAuthor);
                         }
-                    })
-                    page += 1;
+                    });
                 }
                 if (app.searchResults.length) {
                     document.querySelector('.main-conteiner').display = 'none';
@@ -173,15 +150,14 @@ let app = new Vue({
             }
         },
         knowMoreAboutAuthor(authorName) {
-            window.location.assign('HTML/author-quotes.html?author=' + encodeURI(authorName))
+            window.location.assign('HTML/author-quotes.html?author=' + encodeURI(authorName));
         }
     }
 })
 
 document.querySelector('.quote-information').addEventListener('click', () => {
-    window.location.assign('HTML/author-quotes.html?author=' + encodeURI(app.quoteAuthor))
+    window.location.assign('HTML/author-quotes.html?author=' + encodeURI(app.quoteAuthor));
 })
 
-
-
-quoteGenerator()
+quoteGenerator();
+getAllGenres();
